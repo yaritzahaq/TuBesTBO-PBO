@@ -1,7 +1,6 @@
-import java.sql.Connection;
+import java.awt.HeadlessException;
 import java.sql.Statement;
 import java.sql.*;
-import java.util.Arrays;
 import javax.swing.JOptionPane;
 public class flogin extends javax.swing.JFrame {
 
@@ -67,18 +66,17 @@ public class flogin extends javax.swing.JFrame {
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                .addGap(50, 50, 50)
-                                .addComponent(btnSimpan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGap(42, 42, 42)
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnSimpan, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(passwordField, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
@@ -124,27 +122,22 @@ public class flogin extends javax.swing.JFrame {
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
           try {
-            Connection c = koneksidatabase.getkoneksi();
-            Statement s = c.createStatement();
-            String sql = "SELECT * FROM login where username='"+txtUsername.getText() + "' and password='"+Arrays.toString(passwordField.getPassword()) +"'";
-            
-            ResultSet r = s.executeQuery(sql);
-            
-            int baris = 0;
-            while (r.next()) {
-                baris = r.getRow();
+        Statement statement = (Statement) koneksidatabase.GetConnection().createStatement();
+            ResultSet result=statement.executeQuery("Select * from login where username='" + txtUsername.getText() + "' and password='" + passwordField.getText()+"'" );
+            if (result.next()) {
+               JOptionPane.showMessageDialog(rootPane, "Login Berhasil");
+               this.dispose();
+               new fmenuutama().setVisible(true);
+               dispose();
+
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Login Gagal");
+                txtUsername.setText("");
+                passwordField.setText("");
+                txtUsername.requestFocus();
             }
-            
-            if (baris ==1) {
-                JOptionPane.showMessageDialog(null,"Berhasil Login");
-                dispose();
-            }else {
-                JOptionPane.showMessageDialog(null,"Gagal Login");
-            }
-            
-            
-        } catch (SQLException e) {
-            
+        } catch (HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, "Login Gagal");
         }
     }//GEN-LAST:event_btnSimpanActionPerformed
 
@@ -171,4 +164,6 @@ public class flogin extends javax.swing.JFrame {
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
+
+
 }

@@ -1,26 +1,20 @@
-import java.sql.*;
-
+import com.mysql.jdbc.Driver;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+ 
 public class koneksidatabase {
- private static Connection koneksi;
- public static Connection getKoneksi(){
-  if (koneksi == null){
-   try {String url = "jdbc:mysql://localhost:127.0.0.1/tubes"; 
-          String user="root";
-          String pass=""; 
-
- DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-koneksi = DriverManager.getConnection(url , user, pass);
-
- } 
-   catch(SQLException t){
-     System.out.print("Gagal melakukan koneksi ke database");
- }
+    private static Connection koneksi;
+   
+   public static Connection GetConnection()throws SQLException{
+       if (koneksi==null){
+           Driver driver = new Driver();
+           
+       koneksi=DriverManager.getConnection("jdbc:mysql://localhost/tubes","root","");
+       
+       }
+       return koneksi;
+   }
+   
+   
 }
-
-return koneksi;
-}
-
-    static Connection getkoneksi() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
- } 
