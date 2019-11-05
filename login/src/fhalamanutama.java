@@ -1,6 +1,5 @@
 
 import java.awt.HeadlessException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
@@ -80,6 +79,11 @@ public class fhalamanutama extends javax.swing.JFrame {
         jCheckBox1.setText("   Baju Adat");
 
         jCheckBox2.setText("   Baju Wisuda");
+        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox2ActionPerformed(evt);
+            }
+        });
 
         jCheckBox3.setText("   Baju Pernikahan");
 
@@ -265,17 +269,17 @@ public class fhalamanutama extends javax.swing.JFrame {
         String jenisbaju = "";
         int total=0;
         if (jCheckBox1.isSelected()){
-            String bajuadat = jCheckBox1.getText();
+            jenisbaju += jCheckBox1.getText() + ",";
             int hargabajuadat = 170000;
             total = total + hargabajuadat;
         }
         if (jCheckBox2.isSelected()){
-            String bajuwisuda = jCheckBox2.getText();
+            jenisbaju += jCheckBox2.getText() + ",";
             int hargabajuwisuda = 200000;
             total = total + hargabajuwisuda;
         }
         if (jCheckBox3.isSelected()){
-            String bajupernikahan = jCheckBox3.getText();
+            jenisbaju += jCheckBox3.getText() + ",";
             int hargabajupernikahan = 300000;
             total = total + hargabajupernikahan;
         }
@@ -289,10 +293,10 @@ public class fhalamanutama extends javax.swing.JFrame {
         Date d,e;
         a = jTextField1.getText();
         b = jTextField2.getText();
-        c = "";
-        if (jCheckBox1.isSelected()){jCheckBox1.getText();}
-        if (jCheckBox2.isSelected()){jCheckBox2.getText();}
-        if (jCheckBox3.isSelected()){jCheckBox3.getText();}
+        c = jenisbaju;
+        if (jCheckBox1.isSelected()){jenisbaju = "Baju Adat";}
+        if (jCheckBox2.isSelected()){jenisbaju = "Baju Wisuda";}
+        if (jCheckBox3.isSelected()){jenisbaju = "Baju Pernikahan";}
         d = jDateChooser1.getDate();
         e = jDateChooser2.getDate();
         f = jTextField6.getText();
@@ -304,7 +308,7 @@ public class fhalamanutama extends javax.swing.JFrame {
         
         try{
             Statement statement = (Statement) koneksidatabase.GetConnection().createStatement();
-            String sql="insert into datasewa values('"+jTextField1.getText()+"','"+jTextField2.getText()+"','"+c+"','"+jDateChooser1.getDate()+"','"+jDateChooser2.getDate()+"','"+jTextField6.getText()+"')";
+            String sql="insert into datasewa values('"+jTextField1.getText()+"','"+jTextField2.getText()+"','"+jenisbaju+"','"+jDateChooser1.getDate()+"','"+jDateChooser2.getDate()+"','"+jTextField6.getText()+"')";
             statement.executeUpdate(sql);
             JOptionPane.showMessageDialog(null,"Data Berhasil Disimpan");
         }catch (HeadlessException | SQLException j){
@@ -326,6 +330,10 @@ public class fhalamanutama extends javax.swing.JFrame {
  System.exit(0);
  // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox2ActionPerformed
 
     /**
      * @param args the command line arguments
