@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 23, 2019 at 06:45 AM
+-- Generation Time: Nov 05, 2019 at 08:47 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -19,6 +19,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `tubes`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `datasewa`
+--
+
+CREATE TABLE `datasewa` (
+  `Nama` varchar(20) NOT NULL,
+  `Alamat` varchar(100) NOT NULL,
+  `Jenis Baju` varchar(30) NOT NULL,
+  `Tanggal Sewa` varchar(40) NOT NULL,
+  `Tanggal Kembali` varchar(40) NOT NULL,
+  `Total` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `datasewa`
+--
+
+INSERT INTO `datasewa` (`Nama`, `Alamat`, `Jenis Baju`, `Tanggal Sewa`, `Tanggal Kembali`, `Total`) VALUES
+('Yaritza', 'Jl. Papa Merah No.16', 'Baju Pernikahan', 'Tue Nov 05 14:23:37 ICT 2019', 'Thu Nov 07 14:23:42 ICT 2019', 500000);
 
 -- --------------------------------------------------------
 
